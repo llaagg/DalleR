@@ -1,0 +1,79 @@
+@namespace DalleR.Controls
+@using DalleR.Models
+@using Revuo.Chat.Abstraction.Base
+
+@inherits Revuo.Chat.Client.Base.Abstractions.BasePayloadControlThinClient<SearchResultPayload, DalleRApp>
+
+<div class="container-fluid py-4">
+    <div class="d-flex align-items-center mb-4 gap-3">
+        <button class="btn btn-outline-secondary" @onclick="GoToDashboard">← @(Application?.Translator?["DalleR.Back"] ?? "Back")</button>
+        <h2 class="mb-0" style="font-weight:600;">@(Application?.Translator?["DalleR.Search"] ?? "Search")</h2>
+    </div>
+
+    <div class="card mb-4" style="max-width:700px;">
+        <div class="card-body">
+            <div class="row g-3">
+                <div class="col-12">
+                    <label class="form-label">@(Application?.Translator?["DalleR.SearchQuery"] ?? "Search text")</label>
+                    <input class="form-control" @bind="searchQuery" placeholder="@(Application?.Translator?["DalleR.SearchQueryPlaceholder"] ?? "Title, filename...")" />
+                </div>
+                <div class="col-12">
+                    <label class="form-label">@(Application?.Translator?["DalleR.Tags"] ?? "Tags")</label>
+                    <input class="form-control" @bind="searchTags" placeholder="@(Application?.Translator?["DalleR.TagsPlaceholder"] ?? "tag1, tag2...")" />
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label">@(Application?.Translator?["DalleR.Latitude"] ?? "Latitude")</label>
+                    <input class="form-control" @bind="searchLat" type="number" step="0.0001" />
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label">@(Application?.Translator?["DalleR.Longitude"] ?? "Longitude")</label>
+                    <input class="form-control" @bind="searchLon" type="number" step="0.0001" />
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label">@(Application?.Translator?["DalleR.RadiusKm"] ?? "Radius (km)")</label>
+                    <input class="form-control" @bind="searchRadius" type="number" step="1" />
+                </div>
+                <div class="col-12">
+                    <button class="btn btn-primary" @onclick="DoSearch">
+                        🔍 @(Application?.Translator?["DalleR.Search"] ?? "Search")
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @if (Payload?.D != null)
+    {
+        <div class="mb-3 text-muted">@Payload.D.Count @(Application?.Translator?["DalleR.Results"] ?? "results")</div>
+        @if (Payload.D.Count > 0)
+        {
+            <div class="row g-3">
+                @foreach (var pic in Payload.D)
+                {
+                    <div class="col-6 col-md-3 col-lg-2">
+                        <div class="card h-100 shadow-sm">
+                            <div class="card-body p-2 text-center">
+                                <div style="font-size:3rem;">🖼</div>
+                                <div class="small text-truncate" title="@pic.FileName">@pic.FileName</div>
+                                <div class="small text-muted">@pic.FolderPath</div>
+                                @if (pic.Tags.Count > 0)
+                                {
+                                    <div class="mt-1">
+                                        @foreach (var tag in pic.Tags)
+                                        {
+                                            <span class="badge bg-secondary me-1">@tag</span>
+                                        }
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+        else
+        {
+            <div class="text-muted">@(Application?.Translator?["DalleR.NoResults"] ?? "No pictures match your search.")</div>
+        }
+    }
+</div>

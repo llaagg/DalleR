@@ -1,0 +1,41 @@
+@namespace DalleR.Controls
+@using DalleR.Models
+@using Revuo.Chat.Abstraction.Base
+
+@inherits Revuo.Chat.Client.Base.Abstractions.BasePayloadControlThinClient<GalleryPayload, DalleRApp>
+
+<div class="container-fluid py-4">
+    <div class="d-flex align-items-center mb-4 gap-3">
+        <button class="btn btn-outline-secondary" @onclick="GoToGalleries">← @(Application?.Translator?["DalleR.Back"] ?? "Back")</button>
+        <h2 class="mb-0" style="font-weight:600;">@(Payload?.D?.Name ?? "")</h2>
+        @if (!string.IsNullOrEmpty(Payload?.D?.Description))
+        {
+            <span class="text-muted">@Payload.D.Description</span>
+        }
+    </div>
+
+    @if (Payload?.Pictures != null && Payload.Pictures.Count > 0)
+    {
+        <div class="row g-3">
+            @foreach (var picture in Payload.Pictures)
+            {
+                <div class="col-6 col-md-3 col-lg-2">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-body p-2 text-center">
+                            <div style="font-size:3rem;">🖼</div>
+                            <div class="small text-truncate" title="@picture.FileName">@picture.FileName</div>
+                            <div class="small text-muted">@FormatSize(picture.FileSizeBytes)</div>
+                            <button class="btn btn-sm btn-outline-danger mt-1" @onclick="() => RemovePicture(picture.Id!)">
+                                @(Application?.Translator?["DalleR.Remove"] ?? "Remove")
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <div class="text-muted">@(Application?.Translator?["DalleR.EmptyGallery"] ?? "This gallery has no pictures yet.")</div>
+    }
+</div>

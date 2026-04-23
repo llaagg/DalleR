@@ -1,0 +1,64 @@
+@namespace DalleR.Controls
+@using DalleR.Models
+@using Revuo.Chat.Abstraction.Base
+
+@inherits Revuo.Chat.Client.Base.Abstractions.BasePayloadControlThinClient<FolderListPayload, DalleRApp>
+
+<div class="container-fluid py-4">
+    <div class="d-flex align-items-center mb-4 gap-3">
+        <button class="btn btn-outline-secondary" @onclick="GoToDashboard">← @(Application?.Translator?["DalleR.Back"] ?? "Back")</button>
+        <h2 class="mb-0" style="font-weight:600;">@(Application?.Translator?["DalleR.Folders"] ?? "Folders")</h2>
+    </div>
+
+    @if (addingFolder)
+    {
+        <div class="input-group mb-3" style="max-width:600px;">
+            <input class="form-control" @bind="newFolderPath" placeholder="@(Application?.Translator?["DalleR.FolderPath"] ?? "Enter folder path...")" />
+            <button class="btn btn-primary" @onclick="ConfirmAddFolder">@(Application?.Translator?["DalleR.Add"] ?? "Add")</button>
+            <button class="btn btn-outline-secondary" @onclick="() => addingFolder = false">@(Application?.Translator?["DalleR.Cancel"] ?? "Cancel")</button>
+        </div>
+    }
+    else
+    {
+        <button class="btn btn-success mb-3" @onclick="() => addingFolder = true">
+            + @(Application?.Translator?["DalleR.AddFolder"] ?? "Add Folder")
+        </button>
+    }
+
+    @if (Payload?.D != null && Payload.D.Count > 0)
+    {
+        <div class="list-group" style="max-width:900px;">
+            @foreach (var folder in Payload.D)
+            {
+                <div class="list-group-item d-flex justify-content-between align-items-center">
+                    <div>
+                        <div style="font-weight:500;">@folder.Path</div>
+                        <small class="text-muted">
+                            @(folder.PictureCount) @(Application?.Translator?["DalleR.Pictures"] ?? "pictures")
+                            @if (folder.LastScanned.HasValue)
+                            {
+                                <span> · @(Application?.Translator?["DalleR.LastScanned"] ?? "Last scanned"): @folder.LastScanned.Value.ToString("g")</span>
+                            }
+                            @if (folder.IsScanning)
+                            {
+                                <span class="badge bg-warning text-dark ms-2">@(Application?.Translator?["DalleR.Scanning"] ?? "Scanning...")</span>
+                            }
+                        </small>
+                    </div>
+                    <div class="d-flex gap-2">
+                        <button class="btn btn-sm btn-outline-primary" @onclick="() => ScanFolder(folder.Path)">
+                            🔄 @(Application?.Translator?["DalleR.Scan"] ?? "Scan")
+                        </button>
+                        <button class="btn btn-sm btn-outline-danger" @onclick="() => RemoveFolder(folder.Path)">
+                            🗑 @(Application?.Translator?["DalleR.Remove"] ?? "Remove")
+                        </button>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <div class="text-muted">@(Application?.Translator?["DalleR.NoFolders"] ?? "No folders added yet. Add a folder to start scanning for pictures.")</div>
+    }
+</div>
