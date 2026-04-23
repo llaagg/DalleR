@@ -50,6 +50,49 @@ public static class I18N
                     ["DalleR.ShowGalleries"] = "Galleries",
                     ["DalleR.SearchPictures"] = "Search"
                 }
+            },
+            ["pl-PL"] = new Translation()
+            {
+                Entries =
+                {
+                    ["DalleR.Dashboard"] = "Panel główny",
+                    ["DalleR.Pictures"] = "Zdjęcia",
+                    ["DalleR.Folders"] = "Foldery",
+                    ["DalleR.Galleries"] = "Galerie",
+                    ["DalleR.Search"] = "Szukaj",
+                    ["DalleR.ManageFolders"] = "Zarządzaj folderami",
+                    ["DalleR.ManageGalleries"] = "Zarządzaj galeriami",
+                    ["DalleR.Back"] = "Wstecz",
+                    ["DalleR.Add"] = "Dodaj",
+                    ["DalleR.AddFolder"] = "Dodaj folder",
+                    ["DalleR.FolderPath"] = "Podaj ścieżkę folderu...",
+                    ["DalleR.Remove"] = "Usuń",
+                    ["DalleR.Cancel"] = "Anuluj",
+                    ["DalleR.Scan"] = "Skanuj",
+                    ["DalleR.Scanning"] = "Skanowanie...",
+                    ["DalleR.LastScanned"] = "Ostatnie skanowanie",
+                    ["DalleR.NoFolders"] = "Nie dodano jeszcze żadnych folderów. Dodaj folder, aby rozpocząć wyszukiwanie zdjęć.",
+                    ["DalleR.CreateGallery"] = "Utwórz galerię",
+                    ["DalleR.GalleryName"] = "Nazwa",
+                    ["DalleR.GalleryDescription"] = "Opis",
+                    ["DalleR.Create"] = "Utwórz",
+                    ["DalleR.Open"] = "Otwórz",
+                    ["DalleR.NoGalleries"] = "Brak galerii. Utwórz jedną, aby organizować swoje zdjęcia.",
+                    ["DalleR.EmptyGallery"] = "Ta galeria nie zawiera jeszcze żadnych zdjęć.",
+                    ["DalleR.SearchQuery"] = "Tekst wyszukiwania",
+                    ["DalleR.SearchQueryPlaceholder"] = "Tytuł, nazwa pliku...",
+                    ["DalleR.Tags"] = "Tagi",
+                    ["DalleR.TagsPlaceholder"] = "tag1, tag2...",
+                    ["DalleR.Latitude"] = "Szerokość geograficzna",
+                    ["DalleR.Longitude"] = "Długość geograficzna",
+                    ["DalleR.RadiusKm"] = "Promień (km)",
+                    ["DalleR.Results"] = "wyników",
+                    ["DalleR.NoResults"] = "Żadne zdjęcia nie pasują do wyszukiwania.",
+                    ["DalleR.ShowDashboard"] = "Panel główny",
+                    ["DalleR.ShowFolders"] = "Foldery",
+                    ["DalleR.ShowGalleries"] = "Galerie",
+                    ["DalleR.SearchPictures"] = "Szukaj"
+                }
             }
         }
     };
