@@ -35,7 +35,8 @@ public class LocalFileSystemImageSource : IImageSource
                 };
                 pictures.Add(picture);
             }
-            catch { /* skip files that can't be read */ }
+            catch (UnauthorizedAccessException) { }
+            catch (IOException) { }
         }
 
         return Task.FromResult(pictures);
