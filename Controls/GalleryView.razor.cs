@@ -1,16 +1,12 @@
 using DalleR.Models;
+using DalleR.Helpers;
 namespace DalleR.Controls;
 
 public partial class GalleryView
 {
     public override bool HasActions => false;
 
-    private static string FormatSize(long bytes)
-    {
-        if (bytes < 1024) return $"{bytes} B";
-        if (bytes < 1024 * 1024) return $"{bytes / 1024} KB";
-        return $"{bytes / (1024 * 1024)} MB";
-    }
+    private static string FormatSize(long bytes) => DisplayHelper.FormatSize(bytes);
 
     private async Task GoToGalleries()
     {
