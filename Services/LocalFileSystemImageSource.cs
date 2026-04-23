@@ -8,11 +8,11 @@ public class LocalFileSystemImageSource : IImageSource
     public bool IsAvailable => true;
     public string Name => "Local File System";
 
-    public async Task<List<Picture>> ScanFolder(string folderPath)
+    public Task<List<Picture>> ScanFolder(string folderPath)
     {
         var pictures = new List<Picture>();
         if (!Directory.Exists(folderPath))
-            return pictures;
+            return Task.FromResult(pictures);
 
         var files = Directory.GetFiles(folderPath, "*.*", SearchOption.AllDirectories)
             .Where(f => SupportedExtensions.Contains(Path.GetExtension(f).ToLowerInvariant()));
@@ -38,6 +38,6 @@ public class LocalFileSystemImageSource : IImageSource
             catch { /* skip files that can't be read */ }
         }
 
-        return await Task.FromResult(pictures);
+        return Task.FromResult(pictures);
     }
 }
